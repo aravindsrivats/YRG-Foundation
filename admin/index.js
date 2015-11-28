@@ -3,7 +3,10 @@
 var express = require('express'),
     kraken = require('kraken-js'),
     debug = require('debug')('yrg'),
+    mongoose = require('mongoose'),
     options, app;
+
+mongoose.connect('mongodb://localhost/yrg');
 
 options = {
     onconfig: function(config, next) {
