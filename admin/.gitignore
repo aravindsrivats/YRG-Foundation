@@ -1,0 +1,17 @@
+.idea
+.settings
+.build
+.beans
+.yo-rc.json
+.DS_Store*
+.bowerrc
+node_modules
+test/coverage
+test/report/coverage
+/logs
+/cdbs
+*.log
+*.swp
+ehthumbs.db
+Icon?
+Thumbs.db
