@@ -1,9 +1,5 @@
 {
     "port": 8000,
-    "parse": {
-        "app_id": "xPSmUu8MOTEixWIvgknlnnr1WqxSrVdNjytldfKe",
-        "javascript_key": "99NR8y5fJs12e4427TOpLuzcLpe0lsaFQA8ymgPr"
-    },
     "express": {
         "view cache": false,
         "view engine": "jade",
