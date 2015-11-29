@@ -13,6 +13,15 @@ module.exports = function(router) {
         });
     });
 
+    router.get('/:id', function(req, res) {
+        InstitutionModel.find({'id':req.params.id}, function(err, data) {
+            res.json(err ? {
+                'error': 'API Error',
+                'message': 'Error occurred'
+            } : data);
+        });
+    });
+
     router.post('/', function(req, res) {
         var response = {};
         if (typeof req.body.name === 'undefined' || req.body.name === '') {

@@ -13,6 +13,15 @@ module.exports = function(router) {
         });
     });
 
+    router.get('/:donorid', function(req, res) {
+        DonorModel.find({'id':req.params.donorid}, function(err, data) {
+            res.json(err ? {
+                'error': 'API Error',
+                'message': 'Error occurred'
+            } : data);
+        });
+    });
+
     router.post('/', function(req, res) {
         var response = {};
         if (typeof req.body.name === 'undefined' || req.body.name === '') {
