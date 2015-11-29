@@ -11,7 +11,7 @@ block content
 		table(class="table table-condensed table-striped")
 			thead
 				tr
-					th No.
+					th ID
 					th Name
 					th Address
 					th Category
@@ -20,7 +20,7 @@ block content
 			tbody
 				each institution in institutions
 					tr
-						td 
+						td #{institution.id}
 						td #{institution.name}
 						td #{institution.address}
 						td #{institution.category}
@@ -58,7 +58,7 @@ block content
 
 					div(class="form-group")
 						div(class="col-md-offset-2 col-md-10")
-							button(type="button",class="btn btn-default",id="submit-form") Add 
+							button(type="button",class="btn btn-default",id="submit-form") Add
 
 
 block js
@@ -88,7 +88,7 @@ block js
 						else
 							location.reload();
 					}
-					
+
 				});
 			});
 		});
