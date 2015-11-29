@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,8 +19,14 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
+import com.yrg.ecokitchen.db.DonationsBase;
 import com.yrg.ecokitchen.fragments.ContentFragment;
+import com.yrg.ecokitchen.fragments.DonationsFragment;
 import com.yrg.ecokitchen.fragments.EmptyFragment;
+import com.yrg.ecokitchen.models.Donations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyDonations extends AppCompatActivity {
     private ListView drawerList;
@@ -27,22 +34,25 @@ public class MyDonations extends AppCompatActivity {
     private ArrayAdapter<String> lists;
     private FrameLayout mainLayout;
     private ActionBarDrawerToggle drawlerToggle;
-    private String activityTitle;
+    private DonationsBase dbd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_donations);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setLogo(R.mipmap.launcher);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        dbd = new DonationsBase(this);
+        dbd.open();
+
         drawerList = (ListView)findViewById(R.id.navList);
         mainLayout = (FrameLayout) findViewById(R.id.mainLayout);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        activityTitle = "EcoKitchen";
 
         String[] menu = { "My Donations", "About Us", "Contact" };
         lists = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, menu);
@@ -58,6 +68,7 @@ public class MyDonations extends AppCompatActivity {
         });
         setupDrawer();
 
+        updateFragment("My Donations");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +77,12 @@ public class MyDonations extends AppCompatActivity {
                 startActivity(new Intent(MyDonations.this, Donate.class));
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbd.close();
     }
 
     private void setupDrawer() {
@@ -86,7 +103,14 @@ public class MyDonations extends AppCompatActivity {
     public void updateFragment(String item) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
-        Fragment frag = ContentFragment.newInstance(item);
+        Fragment frag = new EmptyFragment();
+        if(item.equals("My Donations")) {
+            ArrayList<Donations> dons = dbd.getDonations();
+            frag = DonationsFragment.newInstance(dons);
+        }
+        else {
+            frag = ContentFragment.newInstance(item);
+        }
         setTitle(item);
         ft.replace(R.id.mainLayout, frag);
         ft.commit();

@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/blue"
+    android:background="@color/lightPrimary"
     android:weightSum="2">
 
     <LinearLayout
@@ -30,11 +30,6 @@
         android:layout_weight=".7"
         android:gravity="center|right">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/map"
-            android:padding="@dimen/icon_padding"/>
 
     </LinearLayout>
 

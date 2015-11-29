@@ -1,12 +1,23 @@
 package com.yrg.ecokitchen.models;
 
-public class Donations {
+import java.io.Serializable;
+
+public class Donations implements Serializable {
     private String id, institution;
     private String[] slot, category;
-    private int amount, date;
+    private int amount;
+    private long date;
     private boolean present;
 
-    public Donations(String a, String b, int c, String[] d, String[] e, int f, int g) {
+    public Donations() {
+        id = institution = "";
+        slot = category = new String[] {};
+        amount = 0;
+        date = 0;
+        present = false;
+    }
+
+    public Donations(String a, String b, long c, String[] d, String[] e, int f, int g) {
         this.id = a;
         this.institution = b;
         this.date = c;
@@ -24,7 +35,7 @@ public class Donations {
         return amount;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
@@ -52,7 +63,7 @@ public class Donations {
         this.category = category;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 

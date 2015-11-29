@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.yrg.ecokitchen.models.Donations;
 import com.yrg.ecokitchen.models.Institutions;
@@ -57,7 +58,7 @@ public class InstitutionsBase {
         return new Institutions(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4).split(","), cursor.getInt(5));
     }
 
-    public Institutions getDonation(String id) {
+    public Institutions getInstitution(String id) {
         Cursor cursor = database.rawQuery("SELECT * FROM institutions WHERE id = ?", new String[]{id});
         if(cursor.moveToFirst())
             return cursorToInstitution(cursor);
@@ -66,6 +67,7 @@ public class InstitutionsBase {
 
     public boolean institutionAdded(String id) {
         Cursor cursor = database.rawQuery("SELECT * FROM institutions WHERE id = ?", new String[]{id});
+        Log.d("Institution exist", cursor.getCount() + "");
         if(cursor.getCount() > 0)
             return true;
         return false;
