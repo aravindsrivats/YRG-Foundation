@@ -1,0 +1,105 @@
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightPrimary"
+    android:fitsSystemWindows="true"
+    tools:context="com.yrg.ecokitchen.Donate">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:id="@+id/menu"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:layout_below="@id/menu">
+
+        <include layout="@layout/institution_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/selected_institution"
+            android:layout_marginBottom="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:hint="When would you like to donate?"
+            android:textColorHint="@color/light_grey"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/pickDate"
+            android:layout_below="@id/selected_institution" />
+
+        <com.yrg.ecokitchen.view.MultiSelectionSpinner
+            android:id="@+id/category_spin"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pickDate"/>
+
+        <com.yrg.ecokitchen.view.MultiSelectionSpinner
+            android:id="@+id/slot_spin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/category_spin" />
+
+        <com.yrg.ecokitchen.view.MultiSelectionSpinner
+            android:id="@+id/addon_spin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/slot_spin" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:hint="How much would you like to donate?"
+            android:textColorHint="@color/light_grey"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/amount"
+            android:layout_below="@id/addon_spin" />
+
+        <Button
+            android:id="@+id/setup_donate"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="Add Donation"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_below="@id/amount"  />
+
+    </RelativeLayout>
+    </RelativeLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

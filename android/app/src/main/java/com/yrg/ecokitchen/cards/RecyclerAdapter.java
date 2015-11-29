@@ -14,8 +14,10 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<CardHolder> {
 
     private List<Institutions> institutions;
+    private RecyclerClickListener listener;
 
-    public RecyclerAdapter(List<Institutions> palettes) {
+    public RecyclerAdapter(List<Institutions> palettes, RecyclerClickListener cl) {
+        this.listener = cl;
         this.institutions = new ArrayList<>();
         this.institutions.addAll(palettes);
     }
@@ -26,7 +28,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<CardHolder> {
                 from(viewGroup.getContext()).
                 inflate(R.layout.institution_card, viewGroup, false);
 
-        return new CardHolder(item);
+        return new CardHolder(item, listener);
     }
 
     @Override

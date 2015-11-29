@@ -41,10 +41,12 @@ public class ContentFragment extends Fragment {
                              Bundle savedInstanceState) {
         View end = inflater.inflate(R.layout.text_content, container, false);
         TextView contentText = (TextView) end.findViewById(R.id.textView);
-        if (item.equals("About Us"))
+        if (item.equals("About Us")) {
             contentText.setText(R.string.about);
-        else
+        }
+        else {
             contentText.setText(R.string.contact);
+        }
         return end;
     }
 }

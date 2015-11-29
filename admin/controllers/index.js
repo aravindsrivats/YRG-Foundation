@@ -41,11 +41,11 @@ module.exports = function(router) {
 
 
     router.get('/', authenticator, function(req, res) {
-        requester(res, 'admin', 'institutions');
+        requester(res, 'institution', 'institutions');
     });
 
     router.get('/institutions', authenticator, function(req, res) {
-        requester(res, 'admin', 'institutions');
+        requester(res, 'institution', 'institutions');
     });
 
     router.get('/donors', authenticator, function(req, res) {

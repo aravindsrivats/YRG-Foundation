@@ -7,6 +7,14 @@ public class Institutions implements Serializable {
     private String[] category;
     private int capacity;
 
+    public Institutions() {
+        id = "_any";
+        name = "Any";
+        address = "Any Institution";
+        category = new String[] {"All Categories"};
+        capacity = 1000;
+    }
+
     public Institutions(String a, String b, String c, String[] d, int e) {
         this.id = a;
         this.name = b;

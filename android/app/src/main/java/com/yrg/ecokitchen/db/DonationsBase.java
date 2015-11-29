@@ -26,7 +26,7 @@ public class DonationsBase {
         database = dbHelper.getWritableDatabase();
     }
 
-    public void addDonation(String id, String institution, int date, String slot, String category, int amount, boolean present) {
+    public void addDonation(String id, String institution, long date, String slot, String category, int amount, boolean present) {
         ContentValues v = new ContentValues();
         v.put("id", id);
         v.put("institution", institution);
@@ -40,8 +40,8 @@ public class DonationsBase {
         }
     }
 
-    public List<Donations> getDonations() {
-        List<Donations> dons = new ArrayList<Donations>();
+    public ArrayList<Donations> getDonations() {
+        ArrayList<Donations> dons = new ArrayList<Donations>();
 
         Cursor cursor = database.query("donations", allColumns, null, null, null, null, null);
         cursor.moveToFirst();
@@ -55,7 +55,7 @@ public class DonationsBase {
     }
 
     private Donations cursorToDonation(Cursor cursor) {
-        return new Donations(cursor.getString(1), cursor.getString(2), cursor.getInt(3), cursor.getString(4).split(","), cursor.getString(5).split(","), cursor.getInt(6), cursor.getInt(7));
+        return new Donations(cursor.getString(1), cursor.getString(2), cursor.getLong(3), cursor.getString(4).split(","), cursor.getString(5).split(","), cursor.getInt(6), cursor.getInt(7));
     }
 
     public Donations getDonation(String id) {

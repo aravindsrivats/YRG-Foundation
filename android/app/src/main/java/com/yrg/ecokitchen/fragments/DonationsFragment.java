@@ -1,9 +1,7 @@
 package com.yrg.ecokitchen.fragments;
 
-import android.content.Context;
-import android.net.Uri;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,23 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yrg.ecokitchen.R;
-import com.yrg.ecokitchen.cards.RecyclerAdapter;
-import com.yrg.ecokitchen.cards.RecyclerClickListener;
-import com.yrg.ecokitchen.models.Institutions;
+import com.yrg.ecokitchen.cards.RecyclerDonationsAdapter;
+import com.yrg.ecokitchen.models.Donations;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InstitutionsFragment extends Fragment {
-    private List<Institutions> institutions;
+public class DonationsFragment extends Fragment {
+    private List<Donations> donations;
 
-    public InstitutionsFragment() {
+    public DonationsFragment() {
     }
 
-    public static InstitutionsFragment newInstance(ArrayList<Institutions> list) {
-        InstitutionsFragment fragment = new InstitutionsFragment();
+    public static DonationsFragment newInstance(ArrayList<Donations> list) {
+        DonationsFragment fragment = new DonationsFragment();
         Bundle args = new Bundle();
-        args.putSerializable("institutions", list);
+        args.putSerializable("donations", list);
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,20 +33,20 @@ public class InstitutionsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            institutions = new ArrayList<>();
-            institutions.addAll((ArrayList<Institutions>) getArguments().getSerializable("institutions"));
+            donations = new ArrayList<>();
+            donations.addAll((ArrayList<Donations>) getArguments().getSerializable("donations"));
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View cv = inflater.inflate(R.layout.fragment_institutions, container, false);
+        View cv = inflater.inflate(R.layout.fragment_donations, container, false);
         RecyclerView recyclerView = (RecyclerView) cv.findViewById(R.id.recyclerList);
         LinearLayoutManager linearLM = new LinearLayoutManager(getActivity());
         linearLM.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLM);
-        recyclerView.setAdapter(new RecyclerAdapter(institutions, (RecyclerClickListener) getActivity()));
+        recyclerView.setAdapter(new RecyclerDonationsAdapter(getActivity().getApplicationContext(), donations));
         return cv;
     }
 

@@ -35,6 +35,7 @@ public class SQLDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(donations);
         database.execSQL(institutions);
+        database.execSQL("insert into institutions (id, name, category) values ('any', 'Any', 'All')");
     }
 
     @Override
