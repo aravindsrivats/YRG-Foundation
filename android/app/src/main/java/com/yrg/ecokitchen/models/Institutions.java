@@ -1,9 +1,8 @@
 package com.yrg.ecokitchen.models;
 
-/**
- * Created by asrivatsan on 11/29/15.
- */
-public class Institutions {
+import java.io.Serializable;
+
+public class Institutions implements Serializable {
     private String id, name, address;
     private String[] category;
     private int capacity;

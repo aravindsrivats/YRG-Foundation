@@ -17,4 +17,12 @@
     <string name="vegroll">VegRoll</string>
     <string name="samosa">Samosa</string>
     <string name="title_activity_my_donations">My Donations</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="about">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis suscipit eros, vitae varius turpis. Praesent sed velit eu risus varius pellentesque id in mi. Nulla venenatis magna feugiat nulla accumsan, pellentesque rutrum dolor auctor. Nunc vulputate risus aliquam sodales accumsan. Nullam eleifend at dolor non ullamcorper. Sed at convallis odio. Nunc varius sed leo sit amet hendrerit. Nam quis eleifend sapien. Etiam non mi erat. Vestibulum vitae ultrices nulla. Maecenas faucibus molestie lacinia. Mauris semper rhoncus nulla</string>
+    <string name="contact">Morbi lorem nibh, imperdiet quis auctor id, egestas nec turpis. Integer ut ligula sit amet nunc cursus pulvinar. Aenean laoreet egestas lectus, et euismod sapien interdum laoreet. Aliquam molestie viverra arcu vitae tempus. Duis non augue aliquet, tempus nibh et, scelerisque lacus. Etiam consequat tellus a sagittis mollis. Quisque eu molestie nulla. Nulla sodales sapien at lorem accumsan posuere. Suspendisse convallis mauris non orci lacinia volutpat. Aenean turpis augue, imperdiet quis eleifend id, gravida nec mauris. Donec imperdiet efficitur neque eget vestibulum.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_donate">Donate</string>
 </resources>

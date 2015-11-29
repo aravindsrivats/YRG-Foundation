@@ -75,26 +75,26 @@ public class MainActivity extends AppCompatActivity {
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            Log.d("Register Response", jsonResponse.toString());
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putBoolean("registered", true);
-                            editor.putString("donorid", jsonResponse.getString("id"));
-                            editor.putString("name", jsonResponse.getString("name"));
-                            editor.putString("email", jsonResponse.getString("email"));
-                            editor.putString("phone", jsonResponse.getString("phone"));
-                            editor.commit();
-                            startActivity(new Intent(MainActivity.this, MyDonations.class));
-                            MainActivity.this.finish();
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    Log.d("Register Response", jsonResponse.toString());
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean("registered", true);
+                    editor.putString("donorid", jsonResponse.getString("id"));
+                    editor.putString("name", jsonResponse.getString("name"));
+                    editor.putString("email", jsonResponse.getString("email"));
+                    editor.putString("phone", jsonResponse.getString("phone"));
+                    editor.commit();
+                    startActivity(new Intent(MainActivity.this, MyDonations.class));
+                    MainActivity.this.finish();
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
