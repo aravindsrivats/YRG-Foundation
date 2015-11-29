@@ -11,7 +11,7 @@ block content
 		table(class="table table-condensed table-striped")
 			thead
 				tr
-					th No.
+					th ID
 					th Name
 					th Address
 					th Category
@@ -19,21 +19,24 @@ block content
 					th
 			tbody
 				each institution in institutions
-					tr
+					tr(id="#{institution.id}")
 						td #{institution.id}
-						td #{institution.name}
-						td #{institution.address}
-						td #{institution.category}
-						td #{institution.capacity}
+						td(class="institution_name") #{institution.name}
+						td(class="institution_address") #{institution.address}
+						td(class="institution_category") #{institution.category}
+						td(class="institution_capacity") #{institution.capacity}
 						td
-							button(id="delete",class="label label-danger delete", insti_id="#{institution.id}")
+							button(id="delete",class="btn btn-xs btn-danger delete", insti_id="#{institution.id}")
 								span(class="glyphicon glyphicon-remove")
+							&nbsp;
+							button(class="btn btn-xs btn-success edit-btn", institution_id="#{institution.id}",data-toggle="modal",data-target="#edit-modal")
+								span(class="glyphicon glyphicon-pencil")
 	br
 	br
 
 	div(class="row")
 		div(class="col-md-offset-1 col-md-10")
-			form(id="add-form",class="form-horizontal",action="http://localhost:8000/api/institutions",method="POST")
+			form(id="add-form",class="form-horizontal",action="/api/institutions",method="POST")
 				fieldset
 					legend Add Institution
 					br
@@ -48,9 +51,7 @@ block content
 					div(class="form-group")
 						label(for="category",class="control-label col-md-2") Category
 						div(class="col-md-10")
-							select(multiple,id="category",name="category",class="form-control col-md-10")
-								option Children
-								option AID
+							input(type="text",id="category",name="category",class="form-control col-md-10",placeholder="Category")
 					div(class="form-group")
 						label(for="capacity",class="control-label col-md-2") Capacity
 						div(class="col-md-10")
@@ -60,13 +61,42 @@ block content
 						div(class="col-md-offset-2 col-md-10")
 							button(type="button",class="btn btn-default",id="submit-form") Add 
 
+	div(id="edit-modal",class="modal fade",role="dialog")
+					div(class="modal-dialog")
+						div(class="modal-content")
+							div(class="modal-header")
+								h4(class="modal-title") Edit
+
+							div(class="modal-body")
+								form(id="edit-form",class="form-horizontal",method="patch")
+									div(class="form-group")
+										label(for="name",class="control-label col-md-2") Name
+										div(class="col-md-10")
+											input(type="text",class="form-control",id="name",name="name",placeholder="Name")
+									div(class="form-group")
+										label(for="address",class="control-label col-md-2") Address
+										div(class="col-md-10")
+											input(type="text",class="form-control col-md-10",id="address",name="address",placeholder="..")
+									div(class="form-group")
+											label(for="category",class="control-label col-md-2") Category
+											div(class="col-md-10")
+												input(type="text",class="form-control col-md-10",id="category",name="category",placeholder="Category..")
+									div(class="form-group")
+											label(for="capacity",class="control-label col-md-2") Capacity
+											div(class="col-md-10")
+												input(type="text",class="form-control col-md-10",id="capacity",name="capacity",placeholder="0")
+
+							div(class="modal-footer")
+								button(id="edit-confirm",type="submit",class="btn btn-default",data-dismiss="modal") Confirm
+								button(class="btn btn-default",data-dismiss="modal") Cancel
+
 
 block js
 	script(type="text/javascript").
 		$(function() {
 			var getFormData = function($form){
-			    var unindexed_array = $form.serializeArray();
-			    var indexed_array = {};
+				var unindexed_array = $form.serializeArray();
+				var indexed_array = {};
 
 			    $.each(unindexed_array, function(i, n){
 			        indexed_array[n['name']] = n['value'];
@@ -98,8 +128,6 @@ block js
 					url : '/api/institutions/'+id,
 					method: 'DELETE',
 					success: function(res){
-						console.log("success delete api");
-						console.log(res);
 						var r = $.parseJSON(JSON.stringify(res));
 						if(r.error)
 							alert("Error : "+ r.error);
@@ -109,5 +137,39 @@ block js
 				});
 			});
 
-		});
+			$('.edit-btn').click(function(){
+				institution_id = $(this).attr('institution_id');
+				
+				var institution_row = $('#'+ institution_id);
+				var institution_name = institution_row.find('.institution_name').text();
+				var institution_address = institution_row.find('.institution_address').text();
+				var institution_category = institution_row.find('.institution_category').text();
+				var institution_capacity = institution_row.find('.institution_capacity').text();
+				var edit_form = $('#edit-form');
+				edit_form.attr('institution_id',institution_id);
+				edit_form.find('#name').val(institution_name);
+				edit_form.find('#address').val(institution_address);
+				edit_form.find('#category').val(institution_category);
+				edit_form.find('#capacity').val(institution_capacity);
+			});
 
+			$('#edit-confirm').click(function(event) {
+				$.ajax({
+					url: '/api/institutions/'+$('#edit-form').attr('institution_id'),
+					method: $('#edit-form').attr('method'),
+					data: JSON.stringify(getFormData($('#edit-form'))),
+					contentType: 'application/json',
+					success: function(res) {
+						console.log("success");
+						console.log(JSON.stringify(res));
+						var r = $.parseJSON(JSON.stringify(res));
+						if(r.message!=="Success")
+							alert("Error : "+ r.message);
+						else
+							location.reload();
+					}
+					
+				});
+				return false;
+			});
+		});

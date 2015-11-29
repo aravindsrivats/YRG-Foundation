@@ -144,12 +144,13 @@ block js
 			});
 			$('#edit-confirm').click(function(event) {
 				$.ajax({
-					url: '/api/institutions/'+$('#edit-form').attr('meal_id'),
+					url: '/api/meals/'+$('#edit-form').attr('meal_id'),
 					method: $('#edit-form').attr('method'),
 					data: JSON.stringify(getFormData($('#edit-form'))),
 					contentType: 'application/json',
 					success: function(res) {
-						
+						console.log("success");
+						console.log(JSON.stringify(res));
 						var r = $.parseJSON(JSON.stringify(res));
 						if(r.message!=="Success")
 							alert("Error : "+ r.message);

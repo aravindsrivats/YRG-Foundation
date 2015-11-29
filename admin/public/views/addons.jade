@@ -8,7 +8,7 @@ block content
 		table(class="table table-condensed table-striped")
 			thead
 				tr
-					th Id
+					th ID
 					th Name
 					th Price
 					th
@@ -19,8 +19,11 @@ block content
 						td #{addon.name}
 						td #{addon.price}
 						td
-							button(id="delete",class="label label-danger delete", addon_id="#{addon.id}")
+							button(id="delete",class="btn btn-xs btn-danger delete", addon_id="#{addon.id}")
 								span(class="glyphicon glyphicon-remove")
+							&nbsp;
+							button(class="btn btn-xs btn-success edit-btn", addon_id="#{addon.id}",data-toggle="modal",data-target="#edit-modal")
+								span(class="glyphicon glyphicon-pencil")
 		br
 		br
 
@@ -46,6 +49,27 @@ block content
 										div(class="form-group")
 											div(class="col-md-offset-2 col-md-10")
 												button(type="submit",class="btn btn-default",id="submit-form") Add
+
+		div(id="edit-modal",class="modal fade",role="dialog")
+					div(class="modal-dialog")
+						div(class="modal-content")
+							div(class="modal-header")
+								h4(class="modal-title") Edit
+
+							div(class="modal-body")
+								form(id="edit-form",class="form-horizontal",method="patch")
+									div(class="form-group")
+										label(for="name",class="control-label col-md-2") Name
+										div(class="col-md-10")
+											input(type="text",class="form-control",id="name",name="name",placeholder="Name")
+									div(class="form-group")
+										label(for="price",class="control-label col-md-2") Price
+										div(class="col-md-10")
+											input(type="number",class="form-control col-md-10",id="price",name="price",placeholder="0")
+
+							div(class="modal-footer")
+								button(id="edit-confirm",type="submit",class="btn btn-default",data-dismiss="modal") Confirm
+								button(class="btn btn-default",data-dismiss="modal") Cancel
 
 block js
 	script(type="text/javascript").
@@ -77,6 +101,39 @@ block js
 						{
 							location.reload();
 						}	
+					}
+					
+				});
+				return false;
+			});
+
+			$('.edit-btn').click(function(){
+				var addon_id = $(this).attr('addon_id');
+				var addon_row = $('#'+ addon_id);
+				var addon_name = addon_row.find('.addon_name').text();
+				var addon_price = addon_row.find('.addon_price').text();
+				alert(addon_name +''+addon_price);
+				var edit_form = $('#edit-form');
+				edit_form.attr('addon_id',addon_id);
+				edit_form.find('#name').val(addon_name);
+				edit_form.find('#price').val(addon_price);
+
+			});
+
+			$('#edit-confirm').click(function(event) {
+				$.ajax({
+					url: '/api/meals/'+$('#edit-form').attr('meal_id'),
+					method: $('#edit-form').attr('method'),
+					data: JSON.stringify(getFormData($('#edit-form'))),
+					contentType: 'application/json',
+					success: function(res) {
+						console.log("success");
+						console.log(JSON.stringify(res));
+						var r = $.parseJSON(JSON.stringify(res));
+						if(r.message!=="Success")
+							alert("Error : "+ r.message);
+						else
+							location.reload();
 					}
 					
 				});
