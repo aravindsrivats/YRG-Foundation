@@ -259,6 +259,7 @@ public class CompleteDonation extends AppCompatActivity {
                 params.put("date", donation.getDate()+"");
                 params.put("slot", slot.getSelectedItemsAsString());
                 params.put("category", category.getSelectedItemsAsString());
+                params.put("addons", addons.getSelectedItemsAsString());
                 params.put("amount", amount.getText().toString());
                 return params;
             }
