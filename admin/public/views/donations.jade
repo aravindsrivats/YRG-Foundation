@@ -1,0 +1,40 @@
+extends base.jade
+
+block header
+	h1 Donors
+
+block content
+	div(class="container")
+				table(id="donationTable",class="table table-condensed table-striped tablesorter")
+					thead
+						tr
+							th Donor Name
+							th Donor Email
+							th Institution
+							th Slot
+							th Amount
+							th Donor Visit
+							th Category
+							th Date
+					tbody
+						each donotion in donations
+							tr
+								td #{donation.id}
+								td #{donation.name}
+								td #{donation.institution}
+								td #{donation.slot}
+								td #{donation.amount}(in Rs.)
+								if donation.present
+									td Yes
+								else
+									td No
+								td #{donation.category}
+								td #{donation.date
+					br
+					br
+
+block js
+	$(function()
+	{
+		$("#donorTable").tablesorter( {sortList: [[7,0],]} ); 
+	});
