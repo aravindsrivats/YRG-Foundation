@@ -60,6 +60,10 @@ module.exports = function(router) {
         requester(res, 'addons', 'addons');
     });
 
+    router.get('/donations', authenticator, function(req, res) {
+        requester(res, 'donations', 'donations');
+    });
+
     router.get('/logout', function (req, res) {
         delete req.session.authStatus;
         res.statusCode = 401;

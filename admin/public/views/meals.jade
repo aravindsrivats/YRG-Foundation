@@ -5,80 +5,80 @@ block header
 
 block content
 	div(class="container")
-				table(class="table table-condensed table-striped")
-					thead
-						tr
-							th Id
-							th Name
-							th Price
-							th Contents
-							th
-					tbody
-						each meal in meals
-							tr(id="#{meal.id}")
-								td #{meal.id}
-								td(class="meal_name") #{meal.name}
-								td(class="meal_price") #{meal.price}
-								td(class="meal_contents") #{meal.contents}
-								td
-									button(id="delete_#{meal.id}",class="btn btn-xs btn-danger delete", meal_id="#{meal.id}")
-										span(class="glyphicon glyphicon-remove")
-									&nbsp;
-									button(class="btn btn-xs btn-success edit-btn", meal_id="#{meal.id}",data-toggle="modal",data-target="#edit-modal")
-										span(class="glyphicon glyphicon-pencil")
-					br
-					br
+		table(class="table table-condensed table-striped")
+			thead
+				tr
+					th Id
+					th Name
+					th Price
+					th Contents
+					th
+			tbody
+				each meal in meals
+					tr(id="#{meal.id}")
+						td #{meal.id}
+						td(class="meal_name") #{meal.name}
+						td(class="meal_price") #{meal.price}
+						td(class="meal_contents") #{meal.contents}
+						td
+							button(id="delete_#{meal.id}",class="btn btn-xs btn-danger delete", meal_id="#{meal.id}")
+								span(class="glyphicon glyphicon-remove")
+							&nbsp;
+							button(class="btn btn-xs btn-success edit-btn", meal_id="#{meal.id}",data-toggle="modal",data-target="#edit-modal")
+								span(class="glyphicon glyphicon-pencil")
+		br
+		br
 
-				div(class="row")
-				div(class="col-md-offset-1 col-md-10")
-					form(id="add-form",class="form-horizontal",action="/api/meals",method="POST")
-						fieldset
-										legend Add a Meal
-										br
-										div(class="form-group")
-											label(for="id",class="control-label col-md-2") ID
-											div(class="col-md-10")
-												input(type="number",class="form-control",id="id",name="id",placeholder="Id")
-										div(class="form-group")
-											label(for="name",class="control-label col-md-2") Name
-											div(class="col-md-10")
-												input(type="text",class="form-control",id="name",name="name",placeholder="Name")
-										div(class="form-group")
-											label(for="price",class="control-label col-md-2") Price
-											div(class="col-md-10")
-												input(type="number",class="form-control col-md-10",id="price",name="price",placeholder="0")
-										div(class="form-group")
-											label(for="contents",class="control-label col-md-2") Contents
-											div(class="col-md-10")
-												input(type="text",class="form-control col-md-10",id="contents",name="contents",placeholder="Contents..")
-										div(class="form-group")
-											div(class="col-md-offset-2 col-md-10")
-												button(type="submit",class="btn btn-default",id="submit-form") Add
+		div(class="row")
+			div(class="col-md-offset-1 col-md-10")
+				form(id="add-form",class="form-horizontal",action="/api/meals",method="POST")
+					fieldset
+						legend Add a Meal
+						br
+						div(class="form-group")
+							label(for="id",class="control-label col-md-2") ID
+							div(class="col-md-10")
+								input(type="number",class="form-control",id="id",name="id",placeholder="Id")
+						div(class="form-group")
+							label(for="name",class="control-label col-md-2") Name
+							div(class="col-md-10")
+								input(type="text",class="form-control",id="name",name="name",placeholder="Name")
+						div(class="form-group")
+							label(for="price",class="control-label col-md-2") Price
+							div(class="col-md-10")
+								input(type="number",class="form-control col-md-10",id="price",name="price",placeholder="0")
+						div(class="form-group")
+							label(for="contents",class="control-label col-md-2") Contents
+							div(class="col-md-10")
+								input(type="text",class="form-control col-md-10",id="contents",name="contents",placeholder="Contents..")
+						div(class="form-group")
+							div(class="col-md-offset-2 col-md-10")
+								button(type="submit",class="btn btn-default",id="submit-form") Add
 
-				div(id="edit-modal",class="modal fade",role="dialog")
-					div(class="modal-dialog")
-						div(class="modal-content")
-							div(class="modal-header")
-								h4(class="modal-title") Edit
+		div(id="edit-modal",class="modal fade",role="dialog")
+			div(class="modal-dialog")
+				div(class="modal-content")
+					div(class="modal-header")
+						h4(class="modal-title") Edit
 
-							div(class="modal-body")
-								form(id="edit-form",class="form-horizontal",method="patch")
-									div(class="form-group")
-										label(for="name",class="control-label col-md-2") Name
-										div(class="col-md-10")
-											input(type="text",class="form-control",id="name",name="name",placeholder="Name")
-									div(class="form-group")
-										label(for="price",class="control-label col-md-2") Price
-										div(class="col-md-10")
-											input(type="number",class="form-control col-md-10",id="price",name="price",placeholder="0")
-									div(class="form-group")
-											label(for="contents",class="control-label col-md-2") Contents
-											div(class="col-md-10")
-												input(type="text",class="form-control col-md-10",id="contents",name="contents",placeholder="Contents..")
+					div(class="modal-body")
+						form(id="edit-form",class="form-horizontal",method="patch")
+							div(class="form-group")
+								label(for="name",class="control-label col-md-2") Name
+								div(class="col-md-10")
+									input(type="text",class="form-control",id="name",name="name",placeholder="Name")
+							div(class="form-group")
+								label(for="price",class="control-label col-md-2") Price
+								div(class="col-md-10")
+									input(type="number",class="form-control col-md-10",id="price",name="price",placeholder="0")
+							div(class="form-group")
+									label(for="contents",class="control-label col-md-2") Contents
+									div(class="col-md-10")
+										input(type="text",class="form-control col-md-10",id="contents",name="contents",placeholder="Contents..")
 
-							div(class="modal-footer")
-								button(id="edit-confirm",type="submit",class="btn btn-default",data-dismiss="modal") Confirm
-								button(class="btn btn-default",data-dismiss="modal") Cancel
+					div(class="modal-footer")
+						button(id="edit-confirm",type="submit",class="btn btn-default",data-dismiss="modal") Confirm
+						button(class="btn btn-default",data-dismiss="modal") Cancel
 
 block js
 	script(type="text/javascript").

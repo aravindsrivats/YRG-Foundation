@@ -5,18 +5,18 @@ block header
 
 block content
 	div(class="container")
-				table(class="table table-condensed table-striped")
-					thead
-						tr
-							th Id
-							th Name
-							th Email
-					tbody
-						each donor in donors
-							tr
-								td #{donor.id}
-								td #{donor.name}
-								td #{donor.email}
+		table(class="table table-condensed table-striped")
+			thead
+				tr
+					th Id
+					th Name
+					th Email
+			tbody
+				each donor in donors
+					tr
+						td #{donor.id}
+						td #{donor.name}
+						td #{donor.email}
 
-					br
-					br
+		br
+		br
