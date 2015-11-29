@@ -11,7 +11,7 @@ var donation = function() {
             type: Date,
             default: Date.now,
         },
-        'slot': String,
+        'slot': [String],
         'category': [String],
         'amount': Number,
         'present': {
