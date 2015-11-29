@@ -17,19 +17,17 @@ module.exports = function(router) {
                 res.json({ 'error': 'API Error', 'message': 'Error occurred' });
             else{
                 var fetchData = function (d, callback){
-                    InstitutionModel.find({'id': d.institution}, function(err1, r1){
+                    InstitutionModel.findOne({'id': d.institution}, function(err1, r1){
                         if(err1)
                             res.json({ 'error': 'API Error', 'message': 'Error occurred' });
                         else {
-                            //console.log(r1);
-                            d['institution'] = (r1[0]);
-                            //d['institution_name'] = d['institution']['name'];
-                            DonorModel.find({'id': d.donorid}, function (err2, r2) {
+                            d['institution'] = r1;
+                            DonorModel.findOne({'id': d.donorid}, function (err2, r2) {
                                 if(err2)
                                     res.json({ 'error': 'API Error', 'message': 'Error occurred' });
                                 else{
                                     //console.log(r2);
-                                    d['donorid']= (r2[0]);
+                                    d['donorid']= r2;
                                     //console.log(d);
                                     return callback(null, d);
                                 }
@@ -38,10 +36,9 @@ module.exports = function(router) {
                     });
                 };
 
-                async.map(data, fetchData, function(err, result){
-                    //console.log(result);
+                async.map(JSON.parse(JSON.stringify(data)), fetchData, function(err, result){
                     res.json(result);
-                });
+               });
             }
         });
     });
