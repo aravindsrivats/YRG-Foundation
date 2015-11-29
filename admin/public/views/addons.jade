@@ -19,7 +19,7 @@ block content
 						td #{addon.name}
 						td #{addon.price}
 						td
-							a(id="delete",class="label label-danger")
+							button(id="delete",class="label label-danger delete", addon_id="#{addon.id}")
 								span(class="glyphicon glyphicon-remove")
 		br
 		br
@@ -61,8 +61,6 @@ block js
 			    return indexed_array;
 			}
 			$('#submit-form').click(function() {
-				alert(JSON.stringify(getFormData($('#add-form'))));
-				console.log();
 				$.ajax({
 					url: $('#add-form').attr('action'),
 					method: $('#add-form').attr('method'),
@@ -71,7 +69,7 @@ block js
 					success: function(res) {
 						alert(JSON.stringify(res));
 						var r = jQuery.parseJSON(JSON.stringify(res));
-						if(r.message!="Success")
+						if(r.message!=="Success")
 						{
 							alert("Error : "+ r.message);
 						}
@@ -83,5 +81,21 @@ block js
 					
 				});
 				return false;
+			});
+
+			$('.delete').click(function(){
+				var id = $(this).attr('addon_id');
+				event.preventDefault();
+				$.ajax({
+					url : '/api/addons/'+id,
+					method: 'DELETE',
+					success: function(res){
+						var r = $.parseJSON(JSON.stringify(res));
+						if(r.error)
+							alert("Error : "+ r.error);
+						else
+							location.reload();
+					}
+				});
 			});
 		});

@@ -20,13 +20,13 @@ block content
 			tbody
 				each institution in institutions
 					tr
-						td 
+						td #{institution.id}
 						td #{institution.name}
 						td #{institution.address}
 						td #{institution.category}
 						td #{institution.capacity}
 						td
-							a(id="delete",class="label label-danger")
+							button(id="delete",class="label label-danger delete", insti_id="#{institution.id}")
 								span(class="glyphicon glyphicon-remove")
 	br
 	br
@@ -74,15 +74,13 @@ block js
 			    return indexed_array;
 			}
 			$('#submit-form').click(function() {
-				console.log($('#add-form').serialize);
 				$.ajax({
 					url: $('#add-form').attr('action'),
 					method: $('#add-form').attr('method'),
 					data: JSON.stringify(getFormData($('#add-form'))),
 					contentType: 'application/json',
 					success: function(res) {
-						alert(JSON.stringify(res));
-						var r = jQuery.parseJSON(JSON.stringify(res));
+						var r = $.parseJSON(JSON.stringify(res));
 						if(r.error)
 							alert("Error :" + r.error);
 						else
@@ -91,5 +89,25 @@ block js
 					
 				});
 			});
+			$('.delete').click(function(){
+				console.log("inside bitton click");
+				var id = $(this).attr('insti_id');
+				console.log(id);
+				event.preventDefault();
+				$.ajax({
+					url : '/api/institutions/'+id,
+					method: 'DELETE',
+					success: function(res){
+						console.log("success delete api");
+						console.log(res);
+						var r = $.parseJSON(JSON.stringify(res));
+						if(r.error)
+							alert("Error : "+ r.error);
+						else
+							location.reload();
+					}
+				});
+			});
+
 		});
 
