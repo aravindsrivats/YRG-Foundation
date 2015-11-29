@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/status_image"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_alignRight="@+id/institution_name" />
     </RelativeLayout>
 
