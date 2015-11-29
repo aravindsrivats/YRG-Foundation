@@ -40,10 +40,6 @@ module.exports = function(router) {
     }
 
 
-    router.get('/index2.html', function(req, res) {
-        res.render('index2');
-    });
-
     router.get('/', authenticator, function(req, res) {
         requester(res, 'admin', 'institutions');
     });
