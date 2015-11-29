@@ -33,9 +33,13 @@ module.exports = function(router) {
                 'message': 'Phone cannot be empty'
             };
         }
+
+        if( typeof req.body.id == 'undefined' || req.body.id == '' )
+            req.body.id = shortid.generate();
+
         if (!Object.keys(response).length) {
             var model = {
-                id: shortid.generate(),
+                id: req.body.id,
                 name: req.body.name,
                 email: req.body.email,
                 phone: req.body.phone
