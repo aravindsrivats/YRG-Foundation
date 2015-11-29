@@ -120,8 +120,8 @@ module.exports = function(router) {
                     donorid: req.body.donorid,
                     institution: req.body.institution,
                     date: req.body.date,
-                    slot: req.body.slot,
-                    category: req.body.category,
+                    slot: req.body.slot.split(','),
+                    category: req.body.category.slot.split(','),
                     amount: req.body.amount,
                     present: req.body.present
                 };
@@ -151,8 +151,8 @@ module.exports = function(router) {
                             donorid: data.id,
                             institution: req.body.institution,
                             date: req.body.date,
-                            slot: req.body.slot,
-                            category: req.body.category,
+                            slot: req.body.slot.slot.split(','),
+                            category: req.body.category.slot.split(','),
                             amount: req.body.amount,
                             present: req.body.present
                         };
