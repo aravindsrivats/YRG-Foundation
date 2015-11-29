@@ -3,66 +3,36 @@
 var IndexModel = require('../models/index');
 var request = require('request');
 
+function requester(res, template, key) {
+    request('http://localhost:8000/api/' + key, function(err, response, body) {
+        var result = {};
+        result[key] = err ? [] : JSON.parse(body);
+        res.render(template, result);
+    };
+}
+
 module.exports = function(router) {
-
-	router.get('/index2.html', function(req, res){
-		res.render('index2');
-	});
-
-    router.get('/', function(req, res) {
-        var model = new IndexModel();
-        res.render('index', model);
+    router.get('/index2.html', function(req, res) {
+        res.render('index2');
     });
 
-	router.get('/', function(req, res){
-        var url = 'http://localhost:8000/api/institutions';
-            request(url, function(err, response, body){
-                if(err){
-                    res.render('admin',{institutions: []});    
-                }
-                else{
-                    res.render('admin',{institutions: JSON.parse(body)});
-                }
-            })
-        });
+    router.get('/', function(req, res) {
+        requester(res, 'admin', 'institutions');
+    });
 
-    router.get('/institutions', function(req, res){
-        var url = 'http://localhost:8000/api/institutions';
-            request(url, function(err, response, body){
-                if(err)
-                    res.render('admin',{institutions: []});    
-                else
-                    res.render('admin',{institutions: JSON.parse(body)});
-            })
-        });
+    router.get('/institutions', function(req, res) {
+        requester(res, 'admin', 'institutions');
+    });
 
-    router.get('/donors', function(req, res){
-        var url = 'http://localhost:8000/api/donors';
-            request(url, function(err, response, body){
-                if(err)
-                    res.render('donor',{donors: []});    
-                else
-                    res.render('donor',{donors: JSON.parse(body)});
-            });
-        }); 
+    router.get('/donors', function(req, res) {
+        requester(res, 'donor', 'donors');
+    });
 
-    router.get('/meals', function(req, res){
-        var url = 'http://localhost:8000/api/meals';
-        request(url, function(err, response, body){
-            if(err)
-                res.render('meals',{meals: [] });
-            else
-                res.render('meals',{meals: JSON.parse(body)});
-        })
-    });	
+    router.get('/meals', function(req, res) {
+        requester(res, 'meals', 'meals');
+    });
 
-    router.get('/addons', function(req, res){
-                var url = 'http://localhost:8000/api/addons';
-                request(url, function(err, response, body){
-                    if(err)
-                        res.render('addons',{addons: [] });
-                    else
-                        res.render('addons',{addons: JSON.parse(body)});
-                });
-        });
+    router.get('/addons', function(req, res) {
+        requester(res, 'addons', 'addons');
+    });
 };
