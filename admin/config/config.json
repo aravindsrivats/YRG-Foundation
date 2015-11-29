@@ -24,15 +24,13 @@
                 }]
             }
         },
-        "appsec" : {
-            "enable" : false,
-            "module" : {
-                "name" : "lusca",
-                "arguments": [
-                    {
-                        "csrf": false
-                    }
-                ]
+        "appsec": {
+            "enable": false,
+            "module": {
+                "name": "lusca",
+                "arguments": [{
+                    "csrf": false
+                }]
             }
         }
     }

@@ -94,6 +94,7 @@ public class Donate extends AppCompatActivity implements RecyclerClickListener {
         new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                idb.removeAll();
                 try {
                     JSONArray jsonResponse = new JSONArray(response);
                     for (int i = 0; i < jsonResponse.length(); i++) {

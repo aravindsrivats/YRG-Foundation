@@ -73,6 +73,10 @@ public class InstitutionsBase {
         return false;
     }
 
+    public void removeAll() {
+        database.delete("institutions", "id <> ?", new String[] {"any"});
+    }
+
     public void close() {
         dbHelper.close();
     }
