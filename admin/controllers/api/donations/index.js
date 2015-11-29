@@ -2,9 +2,50 @@
 
 var DonorModel = require('../../../models').Donor,
     DonationModel = require('../../../models').Donations,
-    shortid = require('shortid');
+    InstitutionModel = require('../../../models').Institutions,
+    shortid = require('shortid'),
+    request = require('request'),
+
+
+    async = require('async');
 
 module.exports = function(router) {
+
+    router.get('/', function(req, res) {
+        DonationModel.find(function(err, data) {
+            if(err)
+                res.json({ 'error': 'API Error', 'message': 'Error occurred' });
+            else{
+                var fetchData = function (d, callback){
+                    InstitutionModel.find({'id': d.institution}, function(err1, r1){
+                        if(err1)
+                            res.json({ 'error': 'API Error', 'message': 'Error occurred' });
+                        else {
+                            //console.log(r1);
+                            d['institution'] = (r1[0]);
+                            //d['institution_name'] = d['institution']['name'];
+                            DonorModel.find({'id': d.donorid}, function (err2, r2) {
+                                if(err2)
+                                    res.json({ 'error': 'API Error', 'message': 'Error occurred' });
+                                else{
+                                    //console.log(r2);
+                                    d['donorid']= (r2[0]);
+                                    //console.log(d);
+                                    return callback(null, d);
+                                }
+                            });
+                        }
+                    });
+                };
+
+                async.map(data, fetchData, function(err, result){
+                    //console.log(result);
+                    res.json(result);
+                });
+            }
+        });
+    });
+
     router.get('/:donor', function(req, res) {
         DonationModel.find({
             'donorid': req.params.donor

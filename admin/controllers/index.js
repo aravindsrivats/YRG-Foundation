@@ -40,10 +40,6 @@ module.exports = function(router) {
     }
 
 
-    router.get('/index2.html', function(req, res) {
-        res.render('index2');
-    });
-
     router.get('/', authenticator, function(req, res) {
         requester(res, 'admin', 'institutions');
     });
@@ -52,15 +48,15 @@ module.exports = function(router) {
         requester(res, 'admin', 'institutions');
     });
 
-    router.get('/donors', function(req, res) {
+    router.get('/donors', authenticator, function(req, res) {
         requester(res, 'donor', 'donors');
     });
 
-    router.get('/meals', function(req, res) {
+    router.get('/meals', authenticator, function(req, res) {
         requester(res, 'meals', 'meals');
     });
 
-    router.get('/addons', function(req, res) {
+    router.get('/addons', authenticator, function(req, res) {
         requester(res, 'addons', 'addons');
     });
 
