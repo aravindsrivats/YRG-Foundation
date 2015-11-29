@@ -39,9 +39,13 @@ module.exports = function(router) {
                 'message': 'Category cannot be empty'
             };
         }
+
+        if( typeof req.body.id == 'undefined' || req.body.id == '' )
+            req.body.id = shortid.generate();
+
         if (!Object.keys(response).length) {
             var model = {
-                id: shortid.generate(),
+                id: req.body.id,
                 name: req.body.name,
                 address: req.body.address,
                 category: req.body.category.split(','),
