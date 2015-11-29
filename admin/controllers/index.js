@@ -8,14 +8,11 @@ function requester(res, template, key) {
         var result = {};
         result[key] = err ? [] : JSON.parse(body);
         res.render(template, result);
-    };
+    });
 }
 
 module.exports = function(router) {
-    router.get('/index2.html', function(req, res) {
-        res.render('index2');
-    });
-
+    
     router.get('/', function(req, res) {
         requester(res, 'admin', 'institutions');
     });

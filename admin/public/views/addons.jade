@@ -14,10 +14,10 @@ block content
 					th
 			tbody
 				each addon in addons
-					tr
+					tr(id="#{addon.id}")
 						td #{addon.id}
-						td #{addon.name}
-						td #{addon.price}
+						td(class="addon_name") #{addon.name}
+						td(class="addon_price") #{addon.price}
 						td
 							button(id="delete",class="btn btn-xs btn-danger delete", addon_id="#{addon.id}")
 								span(class="glyphicon glyphicon-remove")
@@ -91,7 +91,6 @@ block js
 					data: JSON.stringify(getFormData($('#add-form'))),
 					contentType: 'application/json',
 					success: function(res) {
-						alert(JSON.stringify(res));
 						var r = jQuery.parseJSON(JSON.stringify(res));
 						if(r.message!=="Success")
 						{
@@ -112,7 +111,6 @@ block js
 				var addon_row = $('#'+ addon_id);
 				var addon_name = addon_row.find('.addon_name').text();
 				var addon_price = addon_row.find('.addon_price').text();
-				alert(addon_name +''+addon_price);
 				var edit_form = $('#edit-form');
 				edit_form.attr('addon_id',addon_id);
 				edit_form.find('#name').val(addon_name);
@@ -121,14 +119,13 @@ block js
 			});
 
 			$('#edit-confirm').click(function(event) {
+				console.log('/api/addons/'+$('#edit-form').attr('addon_id'));
 				$.ajax({
-					url: '/api/meals/'+$('#edit-form').attr('meal_id'),
+					url: '/api/addons/'+$('#edit-form').attr('addon_id'),
 					method: $('#edit-form').attr('method'),
 					data: JSON.stringify(getFormData($('#edit-form'))),
 					contentType: 'application/json',
 					success: function(res) {
-						console.log("success");
-						console.log(JSON.stringify(res));
 						var r = $.parseJSON(JSON.stringify(res));
 						if(r.message!=="Success")
 							alert("Error : "+ r.message);
